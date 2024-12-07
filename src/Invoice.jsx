@@ -75,21 +75,24 @@ export default function Invoice() {
   const [selectedMonth, setSelectedMonth] = useState("Select Month");
   const [invoiceNum, setInvoiceNum] = useState(num);
 
-  const addInvNum = () => {
-    setInvoiceNum(num++);
-  };
-
   const invNumInput = (e) => {
     setInvoiceNum(e.target.value);
+    num = invoiceNum;
   };
 
-  const subInvNum = () => {
-    if (num === 0) {
-      return;
-    } else {
-      setInvoiceNum(num--);
-    }
-  };
+  // const addInvNum = () => {
+  //   setInvoiceNum(num + 1);
+  //   num = invoiceNum;
+  // };
+
+  // const subInvNum = () => {
+  //   if (num === 0) {
+  //     return;
+  //   } else {
+  //     setInvoiceNum(num - 1);
+  //     num = invoiceNum;
+  //   }
+  // };
 
   const handleSelect = (e) => {
     setSelectedValue(e.target.value);
@@ -232,10 +235,10 @@ export default function Invoice() {
               invoiceNum < 10 ? `0${invoiceNum}` : invoiceNum
             }`}
             <div className="noPrint">
-              <span onClick={addInvNum}>+</span>
-              <span onClick={subInvNum}>-</span>
+              {/* <span onClick={addInvNum}>+</span>
+              <span onClick={subInvNum}>-</span> */}
               <input
-                type="text"
+                type="number"
                 onChange={invNumInput}
                 placeholder="your number here"
               />
