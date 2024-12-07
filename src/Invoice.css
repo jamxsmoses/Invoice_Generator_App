@@ -49,6 +49,14 @@ main {
   gap: 5px;
 }
 
+.invoiceHeader .invoiceNoCon div input {
+  background-color: #fcfcfc;
+  border: none;
+  font-size: 9px;
+  outline: none;
+  color: #000000;
+}
+
 .hidden {
   display: none;
 }

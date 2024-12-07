@@ -79,6 +79,10 @@ export default function Invoice() {
     setInvoiceNum(num++);
   };
 
+  const invNumInput = (e) => {
+    setInvoiceNum(e.target.value);
+  };
+
   const subInvNum = () => {
     if (num === 0) {
       return;
@@ -90,14 +94,6 @@ export default function Invoice() {
   const handleSelect = (e) => {
     setSelectedValue(e.target.value);
   };
-
-  // function hideBtns(e) {
-  //   if (e.key === "h") {
-  //     return "hidden";
-  //   } else if (e.key === "u") {
-  //     return "";
-  //   }
-  // }
 
   const handleSelectedMonth = (event) => {
     setSelectedMonth(event.target.value);
@@ -238,6 +234,11 @@ export default function Invoice() {
             <div className="noPrint">
               <span onClick={addInvNum}>+</span>
               <span onClick={subInvNum}>-</span>
+              <input
+                type="text"
+                onChange={invNumInput}
+                placeholder="your number here"
+              />
             </div>
           </div>
           <div>
