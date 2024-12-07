@@ -1,0 +1,78 @@
+#root {
+  font-family: calibri;
+}
+
+header {
+  width: 98%;
+  margin: 0px auto;
+}
+
+.title {
+  width: 90%;
+  margin: 0px auto 50px auto;
+  text-align: center;
+}
+
+.title h1 {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding: 2px 30px;
+  text-transform: uppercase;
+  display: inline;
+  border: 1px solid black;
+}
+
+.header {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: red; */
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+.address-box {
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  text-transform: uppercase;
+  border: 2px solid #000000;
+  padding: 10px 10px;
+}
+
+.invoice-details-box {
+  font-size: 9px;
+}
+
+.invoice-details-box ul {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.invoice-details-box select {
+  background: none;
+  color: #000000;
+  border: none;
+  font-size: 9px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+  outline: none;
+  font-family: calibri;
+}
+
+.invoice-details-box select option {
+  font-size: 11px;
+  font-family: calibri;
+}

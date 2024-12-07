@@ -1,0 +1,100 @@
+#root {
+  font-family: calibri;
+}
+
+.center {
+  text-align: center;
+  padding: 5px 5px;
+}
+
+.right {
+  text-align: right;
+  padding: 5px 5px;
+}
+
+.left {
+  padding: 5px 5px;
+}
+
+main {
+  width: 98%;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.invoiceHeader {
+  box-sizing: border-box;
+  width: 100%;
+  margin: auto;
+  background-color: #000000;
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: white;
+  margin-top: 10px;
+  padding: 0px 20px;
+  box-sizing: border-box;
+}
+
+.invoiceHeader select {
+  font-family: calibri;
+  background: none;
+  color: #fff;
+  border: none;
+  font-size: 9px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+  outline: none;
+  text-transform: uppercase;
+}
+
+.invoiceHeader select option {
+  font-size: 9px;
+  font-family: calibri;
+  color: black;
+}
+
+main table {
+  width: 100%;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+main table thead,
+main table tbody {
+  width: 100%;
+  font-size: 9px;
+  line-height: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+main table th,
+main table td {
+  text-align: left;
+}
+
+.emptyDiv {
+  border-bottom: 1px solid #000000;
+}
+
+.emptyDiv td {
+  height: 120px;
+  border: none;
+}
+
+.totalDiv td {
+  border: none;
+}
+
+.emptyDiv .bd,
+.totalDiv .bd {
+  border-left: 1px solid #000000;
+}
