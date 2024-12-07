@@ -28,12 +28,47 @@ main {
   margin: auto;
   background-color: #000000;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   font-size: 9px;
   color: white;
   margin-top: 10px;
-  padding: 0px 20px;
+  padding: 4px 20px;
   box-sizing: border-box;
+}
+
+.invoiceHeader .invoiceNoCon {
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.invoiceHeader .invoiceNoCon div {
+  display: flex;
+  gap: 5px;
+}
+
+.hidden {
+  display: none;
+}
+
+@media print {
+  .noPrint {
+    display: none !important;
+  }
+}
+
+.invoiceHeader .invoiceNoCon div span {
+  font-size: 10px;
+  font-weight: bold;
+  background-color: white;
+  color: black;
+  padding: 0px 5px;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+  user-select: none;
 }
 
 .invoiceHeader select {
@@ -97,4 +132,36 @@ main table td {
 .emptyDiv .bd,
 .totalDiv .bd {
   border-left: 1px solid #000000;
+}
+
+main .amountInWords {
+  width: 99%;
+  margin-top: 30px;
+  line-height: 10px;
+}
+
+main .amountInWords p {
+  font-size: 9px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+main .amountInWords input {
+  width: 100%;
+  background-color: #fff;
+  border: none;
+  border-bottom: 1px solid #000000;
+  font-size: 9px;
+  color: #000000;
+  outline: 0px;
+}
+
+main .salutation {
+  font-size: 10px;
+  line-height: 10px;
+}
+
+main .salutation img {
+  width: 100px;
+  margin: -8px 0px -10px 0px;
 }

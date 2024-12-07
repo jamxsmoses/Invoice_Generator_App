@@ -1,4 +1,9 @@
 #root {
   box-sizing: border-box;
   width: 100%;
+  color: #000000;
+}
+
+body {
+  background-color: #fff;
 }

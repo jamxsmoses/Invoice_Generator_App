@@ -1,24 +1,27 @@
 import { useState } from "react";
 import "./Header.css";
 import "./Invoice.css";
+import signature from "./assets/Signature.png";
 
 const mpos = [
   {
     mpoNumber: `250300256`,
+    Agency: "Media Perspectives",
     client: "Mondelez Cadbury",
     brand: `Bournvita`,
     campaign: "Bournvita ",
-    duration: "30 secs",
+    duration: "60 secs",
     material: "MTN Counsumer Marketing Precoms",
     specification: "Midnews on NTA Port Harcourt",
     spots: 5,
-    rate: 500000,
+    rate: 900000,
     volumeDiscount: 27,
     agencyCommission: 15,
     vat: 7.5,
   },
   {
     mpoNumber: `250314634`,
+    Agency: "Media Perspectives",
     client: "Mondelez Cadbury",
     brand: `Bournvita`,
     campaign: "Bournvita ",
@@ -32,41 +35,75 @@ const mpos = [
     vat: 7.5,
   },
   {
-    mpoNumber: `250314634`,
+    mpoNumber: `253948372`,
+    Agency: "PHD Media",
     client: "Mondelez Cadbury",
     brand: `Bournvita`,
     campaign: "Bournvita ",
-    duration: "30 secs",
+    duration: "15 secs",
     material: "Bournvita Tastes Good",
     specification: "NTA Network News",
     spots: 5,
-    rate: 500000,
+    rate: 400000,
     volumeDiscount: 27,
     agencyCommission: 15,
     vat: 7.5,
   },
 ];
 
-console.log(mpos[0].total);
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+// console.log(mpos[0].total);
+
+let num = 1;
 
 export default function Invoice() {
   const [selectedValue, setSelectedValue] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("Select Month");
+  const [invoiceNum, setInvoiceNum] = useState(num);
+
+  const addInvNum = () => {
+    setInvoiceNum(num++);
+  };
+
+  const subInvNum = () => {
+    if (num === 0) {
+      return;
+    } else {
+      setInvoiceNum(num--);
+    }
+  };
 
   const handleSelect = (e) => {
     setSelectedValue(e.target.value);
   };
 
-  const filtered = mpos.filter(checkMpoNum);
+  // function hideBtns(e) {
+  //   if (e.key === "h") {
+  //     return "hidden";
+  //   } else if (e.key === "u") {
+  //     return "";
+  //   }
+  // }
 
-  function checkMpoNum() {
-    return selectedValue;
-  }
+  const handleSelectedMonth = (event) => {
+    setSelectedMonth(event.target.value);
+  };
 
-  console.log(selectedValue);
-
-  console.log(filtered);
-
-  const selectedMpo = mpos.find((mpo) => mpo.mpoNumber === selectedValue);
+  const filtered = mpos.filter((el) => el.mpoNumber === selectedValue);
 
   function calcRateTotal(a, b) {
     return (a * b).toLocaleString("en-US");
@@ -103,9 +140,45 @@ export default function Invoice() {
     return (vatAmount + rem2).toLocaleString("en-US");
   }
 
-  const totalRate = filtered.reduce((accum, mpo) => accum + mpo.rate, 0);
+  const calcTotalRate = () => {
+    if (filtered.length < 1) {
+      return;
+    } else {
+      filtered.forEach((mpo) => {
+        const rateTotal = mpo.spots * mpo.rate;
+        const vdAmount = (mpo.volumeDiscount / 100) * rateTotal;
+        const rem1 = rateTotal - vdAmount;
+        const acAmount = (mpo.agencyCommission / 100) * rem1;
+        const rem2 = rem1 - acAmount;
+        const vatAmount = (mpo.vat / 100) * rem2;
+        mpo.total = rem2 + vatAmount;
+      });
+    }
+  };
+  calcTotalRate();
 
-  console.log(totalRate);
+  const returnTotalRate = () => {
+    if (filtered.length < 1) {
+      return;
+    } else {
+      let totalValue = 0;
+      filtered.forEach((mpo) => {
+        totalValue = totalValue + mpo.total;
+      });
+      console.log(totalValue);
+
+      return totalValue.toLocaleString("en-US");
+    }
+  };
+
+  const getMonthText = () => {
+    const monthToString = selectedMonth.toString();
+    if (monthToString === "July" || monthToString === "May") {
+      return `${monthToString[0]}${monthToString[2]}`;
+    } else {
+      return `${monthToString[0]}${monthToString[1]}`;
+    }
+  };
 
   return (
     <>
@@ -116,7 +189,7 @@ export default function Invoice() {
         <div className="header">
           <div className="address-box">
             <li>The Media Buyer</li>
-            <li>{`Media Perspectives`}</li>
+            <li>{filtered.length < 1 ? "" : filtered[0].Agency}</li>
             <li>Lagos</li>
           </div>
           <div className="invoice-details-box">
@@ -157,22 +230,24 @@ export default function Invoice() {
 
       <main>
         <div className="invoiceHeader">
-          <div>INVOICE NO: {}</div>
+          <div className="invoiceNoCon">
+            INVOICE NO:{" "}
+            {`AG${getMonthText()}24/${
+              invoiceNum < 10 ? `0${invoiceNum}` : invoiceNum
+            }`}
+            <div className="noPrint">
+              <span onClick={addInvNum}>+</span>
+              <span onClick={subInvNum}>-</span>
+            </div>
+          </div>
           <div>
             MONTH:{" "}
-            <select>
-              <option value="January">January</option>
-              <option value="Februbary">February</option>
-              <option value="March">March</option>
-              <option value="April">April</option>
-              <option value="May">May</option>
-              <option value="June">June</option>
-              <option value="July">July</option>
-              <option value="August">August</option>
-              <option value="September">September</option>
-              <option value="October">October</option>
-              <option value="November">November</option>
-              <option value="December">December</option>
+            <select onChange={handleSelectedMonth}>
+              {months.map((month) => (
+                <option key={month} value={month}>
+                  {month}
+                </option>
+              ))}
             </select>
           </div>
           <div>TIN NO: 17363518-0001</div>
@@ -288,11 +363,22 @@ export default function Invoice() {
                   fontWeight: "bold",
                 }}
               >
-                {totalRate.toLocaleString("en-US")}
+                {returnTotalRate()}
               </td>
             </tr>
           </tbody>
         </table>
+        {/* Amount in words */}
+        <div className="amountInWords">
+          <p>Amount in words</p>
+          <input type="text" />
+        </div>
+        <div className="salutation">
+          <p>Thanks</p>
+          <p>Best Regards</p>
+          <img src={signature} alt={signature} />
+          <p>Ojibo Emmanuel</p>
+        </div>
       </main>
     </>
   );
