@@ -1,0 +1,68 @@
+.body2 {
+  width: 95%;
+  height: 90vh;
+  position: absolute;
+  bottom: 0;
+  background-color: #0675c3;
+}
+
+.body2 h1 {
+  font-size: 36px;
+  color: #fff;
+}
+
+.outerDiv2 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  overflow-x: scroll !important;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.innerDiv2 {
+  width: 100%;
+}
+
+.outerDiv2 .innerDiv2 table {
+  width: 100%;
+  font-size: 12px;
+  min-width: max-content;
+}
+
+.innerDiv2 select,
+.innerDiv2 option,
+.innerDiv2 input {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 10px;
+  color: rgb(127, 127, 127);
+}
+
+.innerDiv2 thead tr {
+  background-color: #00101c;
+  color: #fff;
+  font-size: 12px;
+}
+
+.innerDiv2 thead tr td {
+  border-right: 1px solid #fff;
+  padding: 5px;
+}
+
+.innerDiv2 tbody tr td {
+  padding: 5px;
+  font-size: 12px;
+}
+
+.addBtnCont2 {
+  margin-top: 10px;
+  width: 100%;
+  text-align: end;
+}
+
+.addBtnCont2 button {
+  background-color: #0675c3;
+  border-radius: 6px;
+}

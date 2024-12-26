@@ -1,0 +1,84 @@
+#root {
+  box-sizing: border-box;
+}
+
+.main {
+  width: 100%;
+  height: 100vh;
+  background-color: #0674c3;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+.mainBg {
+  background-image: url(../assets/bg.jpg);
+  width: 100%;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  opacity: 10%;
+}
+
+.authCon {
+  padding: 60px 50px;
+  border-radius: 10px;
+  width: 400px;
+  position: relative;
+  background-color: #fff;
+}
+
+.auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  left: 0;
+  top: 0;
+}
+
+.auth .main img {
+  width: 80px;
+}
+
+.main input {
+  background: #0674c369;
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: #ffffff;
+  height: 28px;
+  width: 80%;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  background-color: #0674c3;
+  color: #fff;
+  font-weight: bold;
+  padding: 15px 20px;
+  width: 90%;
+}
+
+.authCon img {
+  cursor: pointer;
+  width: 30px;
+}
+
+::placeholder {
+  color: #1c1f2299;
+  opacity: 1; /* Firefox */
+}
+
+::-ms-input-placeholder {
+  /* Edge 12 -18 */
+  color: #1c1f2299;
+}

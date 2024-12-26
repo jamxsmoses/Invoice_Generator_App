@@ -3,7 +3,7 @@
 }
 
 header {
-  width: 98%;
+  width: 100%;
   margin: 0px auto;
 }
 
@@ -38,7 +38,7 @@ li {
 }
 
 .address-box {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   display: flex;
   flex-direction: column;
@@ -50,7 +50,7 @@ li {
 }
 
 .invoice-details-box {
-  font-size: 9px;
+  font-size: 10px;
 }
 
 .invoice-details-box ul {
@@ -63,7 +63,7 @@ li {
   background: none;
   color: #000000;
   border: none;
-  font-size: 9px;
+  font-size: 10px;
   -webkit-appearance: none;
   -moz-appearance: none;
   text-indent: 1px;
@@ -73,6 +73,6 @@ li {
 }
 
 .invoice-details-box select option {
-  font-size: 11px;
+  font-size: 12px;
   font-family: calibri;
 }

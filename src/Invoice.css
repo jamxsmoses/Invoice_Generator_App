@@ -1,5 +1,16 @@
 #root {
   font-family: calibri;
+  box-sizing: border-box;
+  width: 100%;
+  margin: auto;
+  color: #000000;
+}
+
+body {
+  background-color: #fff;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 .center {
@@ -16,8 +27,12 @@
   padding: 5px 5px;
 }
 
+.invoiceCon {
+  width: 96%;
+}
+
 main {
-  width: 98%;
+  width: 100%;
   margin: auto;
   box-sizing: border-box;
 }
@@ -25,16 +40,20 @@ main {
 .invoiceHeader {
   box-sizing: border-box;
   width: 100%;
-  margin: auto;
+  margin: 10px auto 0px auto;
   background-color: #000000;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 9px;
+  font-size: 10px;
   color: white;
-  margin-top: 10px;
   padding: 4px 20px;
   box-sizing: border-box;
+}
+
+.invTr {
+  background-color: #fff;
+  color: #000000;
 }
 
 .invoiceHeader .invoiceNoCon {
@@ -52,7 +71,7 @@ main {
 .invoiceHeader .invoiceNoCon div input {
   background-color: #fcfcfc;
   border: none;
-  font-size: 9px;
+  font-size: 10px;
   outline: none;
   color: #000000;
 }
@@ -67,8 +86,8 @@ main {
   }
 }
 
-.invoiceHeader .invoiceNoCon div span {
-  font-size: 10px;
+/* .invoiceHeader .invoiceNoCon div span {
+  font-size: 11px;
   font-weight: bold;
   background-color: white;
   color: black;
@@ -77,14 +96,14 @@ main {
   border: none;
   cursor: pointer;
   user-select: none;
-}
+} */
 
 .invoiceHeader select {
   font-family: calibri;
   background: none;
   color: #fff;
   border: none;
-  font-size: 9px;
+  font-size: 10px;
   -webkit-appearance: none;
   -moz-appearance: none;
   text-indent: 1px;
@@ -94,7 +113,7 @@ main {
 }
 
 .invoiceHeader select option {
-  font-size: 9px;
+  font-size: 10px;
   font-family: calibri;
   color: black;
 }
@@ -113,7 +132,7 @@ td {
 main table thead,
 main table tbody {
   width: 100%;
-  font-size: 9px;
+  font-size: 10px;
   line-height: 10px;
   box-sizing: border-box;
   text-align: center;
@@ -129,7 +148,7 @@ main table td {
 }
 
 .emptyDiv td {
-  height: 120px;
+  height: 80px;
   border: none;
 }
 
@@ -144,32 +163,49 @@ main table td {
 
 main .amountInWords {
   width: 99%;
+  box-sizing: border-box;
   margin-top: 30px;
   line-height: 10px;
 }
 
 main .amountInWords p {
-  font-size: 9px;
+  font-size: 10px;
   font-style: italic;
   font-weight: bold;
 }
 
-main .amountInWords input {
+main .amountInWords h3 {
   width: 100%;
+  border-radius: 0px;
+  padding: 0px 0px 4px 0px;
   background-color: #fff;
   border: none;
   border-bottom: 1px solid #000000;
-  font-size: 9px;
+  font-size: 10px;
   color: #000000;
   outline: 0px;
 }
 
 main .salutation {
-  font-size: 10px;
+  margin-top: 30px;
+  font-size: 11px;
   line-height: 10px;
 }
 
-main .salutation img {
+main .salutation .img {
   width: 100px;
+  height: 40px;
+  background-image: url(./assets/Signature.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center left;
   margin: -8px 0px -10px 0px;
+}
+
+.refresh {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  width: 25px;
+  cursor: pointer;
 }

@@ -1,0 +1,126 @@
+.body {
+  height: 90vh;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 10px;
+}
+
+.allMposCont {
+  width: 100%;
+  margin: auto;
+  background-color: rgb(235, 235, 235);
+  box-sizing: border-box;
+  padding: 20px;
+  border-radius: 15px;
+  height: 65%;
+}
+
+.dashboard {
+  width: 100%;
+  padding: 20px;
+  border-radius: 15px;
+  height: 30%;
+  box-sizing: border-box;
+  background-color: rgb(235, 235, 235);
+}
+
+.incomes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.incomes-container div {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.incomes-container div h1 {
+  font-size: 30px;
+  margin: 0;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+.outerDiv {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(214, 214, 214);
+  overflow-x: scroll !important;
+  border: 1px solid black;
+}
+
+.innerDiv {
+  width: 100%;
+}
+
+.outerDiv .innerDiv table {
+  width: 100%;
+  font-size: 12px;
+  min-width: max-content;
+}
+
+.innerDiv select,
+.innerDiv option,
+.innerDiv input {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 10px;
+  color: rgb(255, 255, 255);
+}
+
+.innerDiv .filter-thead tr {
+  background: none;
+}
+
+.innerDiv .filter-thead tr td {
+  border: 1px solid rgb(201, 201, 201);
+}
+
+.innerDiv .filter-thead tr td input {
+  color: black;
+}
+
+.innerDiv thead tr {
+  background-color: #00101c;
+  color: #fff;
+  font-size: 12px;
+}
+
+.innerDiv thead tr td {
+  border-right: 1px solid #fff;
+  padding: 5px;
+}
+
+.innerDiv tbody tr td {
+  padding: 5px;
+  font-size: 12px;
+}
+
+.addBtnCont {
+  margin-top: 10px;
+  width: 100%;
+  text-align: end;
+}
+
+.addBtnCont button {
+  background-color: #0675c3;
+  border-radius: 6px;
+}
+
+.rightbd {
+  border: none !important;
+}
+
+.totals {
+  font-size: 15px;
+  font-weight: 700;
+  text-align: right;
+}
