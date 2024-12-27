@@ -23,6 +23,7 @@ export default function Invoice() {
   const [selectedValue, setSelectedValue] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("Select Month");
   const [mpoList, setMpoList] = useState([]);
+  const [selectedAgency, setSelectedAgency] = useState("");
 
   const mposRef = collection(db, "MPOS");
 
@@ -46,28 +47,33 @@ export default function Invoice() {
     getMPOList();
   });
 
-  console.log(mpoList);
+  // console.log(mpoList);
 
   const mpos = mpoList;
 
   function findInvNumber() {
-    if (filtered.length < 1) {
+    if (filteredMpoNums.length < 1) {
       return;
     }
-    const index = mpos.findIndex((item) => item.mpoNumber === selectedValue);
+    const index = uniqueMPONums.findIndex(
+      (item) => item.mpoNumber === selectedValue
+    );
     return index + 1;
   }
-
-  const handleSelect = (e) => {
-    setSelectedValue(e.target.value);
-  };
 
   const handleSelectedMonth = (event) => {
     setSelectedMonth(event.target.value);
   };
 
-  const filtered = mpos.filter((el) => el.mpoNumber === selectedValue);
-  // console.log(filtered[0]);
+  // let filtered;
+
+  const filteredAgencyMPOs = mpos.filter(
+    (mpo) => mpo.agency === selectedAgency
+  );
+
+  const filteredMpoNums = filteredAgencyMPOs.filter(
+    (mpo) => mpo.mpoNumber === selectedValue
+  );
 
   function calcRateTotal(a, b) {
     const calcRate = Math.round(a * b * 100) / 100;
@@ -133,10 +139,10 @@ export default function Invoice() {
   }
 
   const calcTotalRate = () => {
-    if (filtered.length < 1) {
+    if (filteredMpoNums.length < 1) {
       return;
     } else {
-      filtered.forEach((mpo) => {
+      filteredMpoNums.forEach((mpo) => {
         const rateTotal = mpo.spots * mpo.rate;
         const vdAmount = (mpo.volumeDiscount / 100) * rateTotal;
         const rem1 = rateTotal - vdAmount;
@@ -150,11 +156,11 @@ export default function Invoice() {
   calcTotalRate();
 
   const returnTotalRate = () => {
-    if (filtered.length < 1) {
+    if (filteredMpoNums.length < 1) {
       return;
     } else {
       let totalValue = 0;
-      filtered.forEach((mpo) => {
+      filteredMpoNums.forEach((mpo) => {
         totalValue = totalValue + mpo.total;
       });
       // console.log(totalValue);
@@ -291,6 +297,14 @@ export default function Invoice() {
   //   // console.log(beforeMainTotal);
   // }
 
+  const uniqueAgency = Array.from(
+    new Map(mpos.map((item) => [item.agency, item])).values()
+  );
+
+  const uniqueMPONums = Array.from(
+    new Map(filteredAgencyMPOs.map((item) => [item.mpoNumber, item])).values()
+  );
+
   return (
     <>
       <div className="invoiceCon">
@@ -301,35 +315,54 @@ export default function Invoice() {
           <div className="header">
             <div className="address-box">
               <li>The Media Buyer</li>
-              <li>{filtered.length < 1 ? "" : filtered[0].agency}</li>
+              <li>
+                {filteredMpoNums.length < 1 ? "" : filteredMpoNums[0].agency}
+              </li>
               <li>Lagos</li>
             </div>
             <div className="invoice-details-box">
               <ul>
-                <li>
-                  <b>MPO NO: </b>
-                  <select onChange={handleSelect}>
+                <li className="noPrint">
+                  <b>AGENCY: </b>
+                  <select onChange={(e) => setSelectedAgency(e.target.value)}>
                     <option value="" selected>
-                      Select MPO No.
+                      Select Agency
                     </option>
-                    {mpos.map((mpo) => (
-                      <option key={mpo.index} value={mpo.mpoNumber}>
-                        {mpo.mpoNumber}
+                    {uniqueAgency.map((mpo) => (
+                      <option key={mpo.agency} value={mpo.agency}>
+                        {mpo.agency}
                       </option>
                     ))}
                   </select>
                 </li>
                 <li>
+                  <b>MPO NO: </b>
+                  <select onChange={(e) => setSelectedValue(e.target.value)}>
+                    <option value="" selected>
+                      Select MPO No.
+                    </option>
+                    {uniqueMPONums.length < 1
+                      ? ""
+                      : uniqueMPONums.map((mpo) => (
+                          <option key={mpo.index} value={mpo.mpoNumber}>
+                            {mpo.mpoNumber}
+                          </option>
+                        ))}
+                  </select>
+                </li>
+                <li>
                   <b>CLIENT: </b>
-                  {filtered.length < 1 ? "" : filtered[0].client}
+                  {filteredMpoNums.length < 1 ? "" : filteredMpoNums[0].client}
                 </li>
                 <li>
                   <b>BRAND: </b>
-                  {filtered.length < 1 ? "" : filtered[0].brand}
+                  {filteredMpoNums.length < 1 ? "" : filteredMpoNums[0].brand}
                 </li>
                 <li>
                   <b>CAMPAIGN: </b>
-                  {filtered.length < 1 ? "" : filtered[0].campaign}
+                  {filteredMpoNums.length < 1
+                    ? ""
+                    : filteredMpoNums[0].campaign}
                 </li>
                 <li>
                   <b>INVOICE DATE: </b>
@@ -345,7 +378,7 @@ export default function Invoice() {
             <div className="invoiceNoCon">
               INVOICE NO:{" "}
               {`AG${getMonthText()}24/${
-                filtered.length < 1
+                filteredAgencyMPOs.length < 1
                   ? ""
                   : findInvNumber() < 10
                   ? `0${findInvNumber()}`
@@ -385,9 +418,11 @@ export default function Invoice() {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((item) => (
+              {filteredMpoNums.map((item) => (
                 <tr key={item.index}>
-                  <td className="center">{filtered.indexOf(item) + 1}</td>
+                  <td className="center">
+                    {filteredMpoNums.indexOf(item) + 1}
+                  </td>
                   <td className="left">{item.material}</td>
                   <td className="center">{item.duration}</td>
                   <td className="left">{item.specification}</td>
@@ -479,7 +514,7 @@ export default function Invoice() {
                     fontWeight: "bold",
                   }}
                 >
-                  {filtered.length < 1
+                  {filteredMpoNums.length < 1
                     ? ""
                     : `${
                         returnTotalRate() % 1 !== 0
@@ -494,7 +529,7 @@ export default function Invoice() {
           <div className="amountInWords">
             <p>Amount in words</p>
             <h3 style={{ fontWeight: 500 }}>
-              {filtered.length < 1
+              {filteredMpoNums.length < 1
                 ? ""
                 : numberToWordsInNaira(returnTotalRate())}
             </h3>

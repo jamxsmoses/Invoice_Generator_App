@@ -12,6 +12,9 @@
   justify-content: center;
   align-items: center;
   animation: l1 1s infinite linear;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 @keyframes l1 {

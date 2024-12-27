@@ -37,6 +37,12 @@ li {
   list-style: none;
 }
 
+@media print {
+  .noPrint {
+    display: none !important;
+  }
+}
+
 .address-box {
   font-size: 14px;
   font-weight: 600;

@@ -7,6 +7,33 @@
   bottom: 10px;
 }
 
+.loading {
+  display: flex;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(90deg, #0001 33%, #0005 50%, #0001 66%) #22262c;
+  background-size: 300% 100%;
+  justify-content: center;
+  animation: l1 1s infinite linear;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 6px;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+@keyframes l1 {
+  0% {
+    background-position: right;
+  }
+}
+
+.loading span {
+  font-size: 14px;
+  color: rgb(91, 97, 112);
+}
+
 .allMposCont {
   width: 100%;
   margin: auto;
@@ -15,6 +42,27 @@
   padding: 20px;
   border-radius: 15px;
   height: 65%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mposFilterCon select {
+  background-color: #00101c;
+  padding: 5px 20px 5px 2px;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  color: rgb(255, 255, 255);
+  outline: none;
+}
+
+.mposFilterCon select option {
+  font-size: 12px;
+  color: black;
+  background-color: rgb(255, 255, 255);
+  outline: none;
+  border: none;
 }
 
 .dashboard {
@@ -24,12 +72,59 @@
   height: 30%;
   box-sizing: border-box;
   background-color: rgb(235, 235, 235);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.box {
+  background-color: #00101c;
+  height: 100%;
+  flex: 1;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.box1 {
+  flex: 0.5;
+}
+
+.box2 {
+  flex: 1;
+}
+
+.box3 {
+  flex: 2;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  height: 100%;
+}
+
+.box3 select {
+  border: none;
+  outline: none;
+  background-color: #0675c3;
+  padding: 5px;
+  box-sizing: border-box;
+  font-size: 12px;
+}
+
+.box3 select option {
+  background-color: #00101c;
+  font-size: 12px;
 }
 
 .incomes-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+}
+
+.incomes-container div .span {
+  color: #0675c3;
+  margin-bottom: 5px;
 }
 
 .incomes-container div {
@@ -41,6 +136,7 @@
 .incomes-container div h1 {
   font-size: 30px;
   margin: 0;
+  color: white;
 }
 
 h1 {
@@ -53,7 +149,33 @@ h1 {
   justify-content: space-between;
   background-color: rgb(214, 214, 214);
   overflow-x: scroll !important;
+  overflow-y: scroll !important;
   border: 1px solid black;
+}
+
+/* Scrollbar Styling for WebKit Browsers (Chrome, Edge, Safari) */
+.outerDiv::-webkit-scrollbar {
+  width: 12px; /* Width of the vertical scrollbar */
+}
+
+.outerDiv::-webkit-scrollbar-track {
+  background: #f0f0f0; /* Background of the scrollbar track */
+  border-radius: 4px; /* Rounded corners for the track */
+}
+
+.outerDiv::-webkit-scrollbar-thumb {
+  background: #0675c3; /* Color of the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners for the thumb */
+}
+
+.outerDiv::-webkit-scrollbar-thumb:hover {
+  background: #0675c3; /* Hover color for the thumb */
+}
+
+/* Scrollbar Styling for Firefox */
+.outerDiv {
+  scrollbar-width: 12px; /* Thin scrollbar */
+  scrollbar-color: #0675c3 #00101c; /* Thumb color and track color */
 }
 
 .innerDiv {
@@ -76,6 +198,15 @@ h1 {
   color: rgb(255, 255, 255);
 }
 
+.filter-thead select {
+  color: rgb(161, 161, 161);
+}
+
+.filter-thead option {
+  color: rgb(0, 0, 0);
+  background-color: #fff;
+}
+
 .innerDiv .filter-thead tr {
   background: none;
 }
@@ -88,15 +219,27 @@ h1 {
   color: black;
 }
 
+.innerDiv .filter-thead tr td input::placeholder {
+  color: rgb(161, 161, 161);
+}
+
 .innerDiv thead tr {
   background-color: #00101c;
   color: #fff;
   font-size: 12px;
 }
 
+.specialTR {
+  height: 30px;
+}
+
 .innerDiv thead tr td {
   border-right: 1px solid #fff;
   padding: 5px;
+}
+
+.innerDiv tbody {
+  position: relative;
 }
 
 .innerDiv tbody tr td {

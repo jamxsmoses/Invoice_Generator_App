@@ -1,14 +1,18 @@
 .body2 {
-  width: 95%;
   height: 90vh;
-  position: absolute;
   bottom: 0;
-  background-color: #0675c3;
+  background-color: rgb(235, 235, 235);
+  width: 95%;
+  margin: auto;
+  box-sizing: border-box;
+  padding: 20px;
+  border-radius: 15px;
+  height: 65%;
 }
 
 .body2 h1 {
   font-size: 36px;
-  color: #fff;
+  color: black;
 }
 
 .outerDiv2 {
@@ -17,7 +21,6 @@
   justify-content: space-between;
   overflow-x: scroll !important;
   box-sizing: border-box;
-  padding: 20px;
 }
 
 .innerDiv2 {
@@ -36,8 +39,42 @@
   background: none;
   border: none;
   outline: none;
+  font-size: 12px;
+  color: rgb(0, 0, 0);
+}
+
+.innerDiv2 input {
+  background: none;
+  border: none;
+  outline: none;
   font-size: 10px;
-  color: rgb(127, 127, 127);
+  color: rgb(0, 0, 0);
+  width: 200px;
+  height: 100px;
+  box-sizing: border-box;
+  font-size: 12px;
+}
+
+.innerDiv2 textarea {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 10px;
+  color: rgb(0, 0, 0);
+  width: 200px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+  box-sizing: border-box;
+  font-size: 12px;
+  resize: none;
+}
+
+.innerDiv2 input::placeholder {
+  color: rgb(146, 146, 146);
+  font-size: 12px;
 }
 
 .innerDiv2 thead tr {
@@ -59,10 +96,18 @@
 .addBtnCont2 {
   margin-top: 10px;
   width: 100%;
-  text-align: end;
+  height: 60px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
 }
 
 .addBtnCont2 button {
   background-color: #0675c3;
   border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 100px;
 }
