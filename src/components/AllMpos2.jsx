@@ -5,17 +5,14 @@ import { getDocs, collection } from "firebase/firestore";
 import "./NewMpo.css";
 import Loading from "./Loading";
 import "./AllMpos.css";
-import PhdChart from "../charts/Phd/PhdChart";
-import MPChart from "../charts/MP/MPChart";
+import Chart from "../charts/Chart";
 
 export default function AllMpos2() {
-  // const [filterByAgency, setFilterByAgency] = useState("Media Perspectives");
-  const [currentChart, setCurrentChart] = useState("PHD Media");
-  const [currAgencyMpos, setCurrAgencyMpos] = useState("PHD Media");
+  const [currAgencyMpos, setCurrAgencyMpos] = useState("All");
   const [mpoList, setMpoList] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState("");
   // const [filteredMpoNums, setFilteredMpoNums] = useState("");
-  const [clientInput, setClientInput] = useState("");
+  // const [clientInput, setClientInput] = useState("");
   // const [clientResults, setClientResults] = useState([]);
 
   const mposRef = collection(db, "MPOS");
@@ -43,21 +40,22 @@ export default function AllMpos2() {
   const mpos = mpoList;
 
   const clearFilters = () => {
-    setClientInput("");
+    // setClientInput("");
     setSelectedBrand("");
-    setClientResults("");
-    setFilteredMpoNums("");
+    // setClientResults("");
+    // setFilteredMpoNums("");
   };
 
   let filtered = mpos;
 
-  function handleMPOs(e) {
-    setFilteredMpoNums(e.target.value);
-  }
+  // function handleMPOs(e) {
+  //   setFilteredMpoNums(e.target.value);
+  // }
 
-  const filteredMPOSbyAgency = mpos.filter(
-    (mpo) => mpo.agency === currAgencyMpos
-  );
+  const filteredMPOSbyAgency =
+    currAgencyMpos === "All"
+      ? mpos
+      : mpos.filter((mpo) => mpo.agency === currAgencyMpos);
 
   // function handleClient(e) {
   //   setClientInput(e.target.value);
@@ -253,12 +251,6 @@ export default function AllMpos2() {
     }
   };
 
-  let Component1;
-  if (currentChart === "PHD Media") {
-    Component1 = PhdChart;
-  } else if (currentChart === "Media Perspectives") {
-    Component1 = MPChart;
-  }
   // const filteredAgency = mpos.filter((el) => el.agency === "PHD Media");
   // console.log(filteredAgency[0].rate);
 
@@ -274,13 +266,15 @@ export default function AllMpos2() {
     ? (filtered = mpos)
     : (filtered = filtered.filter((item) => item.brand === selectedBrand));
 
+  console.log(currAgencyMpos);
+
   return (
     <>
       <div className="body allMposBody">
         <div className="dashboard">
           <div
             className="box box1 incomes-container"
-            style={{ gap: filtered.length < 1 ? "60px" : "20px" }}
+            style={{ gap: filtered.length < 1 ? "60px" : "15px" }}
           >
             <div>
               <span className="span">Total Gross Income</span>
@@ -288,7 +282,15 @@ export default function AllMpos2() {
                 {filtered.length < 1 ? (
                   <Loader />
                 ) : (
-                  <h1>
+                  <h1
+                    style={{
+                      boxSizing: "border-box",
+                      padding: "5px",
+                      backgroundColor: "#ffffff18",
+                      color: "#27a5ff",
+                      borderRadius: "5px",
+                    }}
+                  >
                     {filtered.length < 1
                       ? ""
                       : `${
@@ -311,7 +313,15 @@ export default function AllMpos2() {
                 {filtered.length < 1 ? (
                   <Loader />
                 ) : (
-                  <h1>
+                  <h1
+                    style={{
+                      boxSizing: "border-box",
+                      padding: "5px",
+                      backgroundColor: "#ffffff18",
+                      color: "#27a5ff",
+                      borderRadius: "5px",
+                    }}
+                  >
                     {filtered.length < 1
                       ? ""
                       : `${
@@ -325,18 +335,8 @@ export default function AllMpos2() {
             </div>
           </div>
           <div className="box box2"></div>
-          <div className="box box3">
-            <div style={{ flex: "1" }}>
-              <select onChange={(e) => setCurrentChart(e.target.value)}>
-                <option selected value="PHD Media">
-                  PHD Media
-                </option>
-                <option value="Media Perspectives">Media Perspectives</option>
-              </select>
-            </div>
-            <div style={{ flex: "5", height: "100%" }}>
-              <Component1 />
-            </div>
+          <div className="box" style={{ flex: "1.5", height: "100%" }}>
+            <Chart />
           </div>
         </div>
         <div className="allMposCont">
@@ -353,6 +353,9 @@ export default function AllMpos2() {
               <h1>All MPOs</h1>
               <div className="mposFilterCon">
                 <select onChange={(e) => setCurrAgencyMpos(e.target.value)}>
+                  <option value={"All"} defaultValue>
+                    All Agencies
+                  </option>
                   {uniqueAgency.map((mpo) => (
                     <option value={mpo.agency} key={mpo.agency}>
                       {mpo.agency}
@@ -365,8 +368,9 @@ export default function AllMpos2() {
                   backgroundColor: `${
                     filtered === mpos ? "#0675c3" : "OrangeRed"
                   }`,
-                  height: "40px",
+                  padding: "6px 15px",
                   border: "none",
+                  fontSize: "16px",
                   borderRadius: "16px",
                   outline: "none",
                 }}
@@ -386,7 +390,6 @@ export default function AllMpos2() {
                     <td>
                       <input
                         type="text"
-                        onChange={handleMPOs}
                         placeholder="...search by MPO number"
                       />
                     </td>
@@ -446,14 +449,16 @@ export default function AllMpos2() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filtered.length < 1 ? (
+                  {filteredMPOSbyAgency.length < 1 ? (
                     <tr className="specialTR">
                       <Loading />
                     </tr>
                   ) : (
                     filteredMPOSbyAgency.map((mpo) => (
                       <tr key={mpo.index} className="specialTR">
-                        <td className="short">{filtered.indexOf(mpo) + 1}</td>
+                        <td className="short">
+                          {filteredMPOSbyAgency.indexOf(mpo) + 1}
+                        </td>
                         <td>{mpo.mpoNumber}</td>
                         <td className="long">{mpo.client}</td>
                         <td>{mpo.brand}</td>
@@ -514,7 +519,14 @@ export default function AllMpos2() {
                       </tr>
                     ))
                   )}
-                  <tr>
+
+                  <tr
+                    style={{
+                      backgroundColor: "#00101c",
+                      color: "white",
+                      border: "none",
+                    }}
+                  >
                     <td className="rightbd"></td>
                     <td className="rightbd"></td>
                     <td className="rightbd"></td>
@@ -576,8 +588,20 @@ export default function AllMpos2() {
             </div>
           </div>
 
-          <div>
-            <span className="totalFigure">
+          <div style={{ width: "100%", textAlign: "right" }}>
+            <span style={{ fontSize: "14px" }}>Total Net: </span>
+            <span
+              className="totalFigure"
+              style={{
+                fontSize: "22px",
+                fontWeight: "600",
+                backgroundColor: "#00101c",
+                boxSizing: "border-box",
+                padding: "0px 15px 0px 15px",
+                color: "white",
+              }}
+            >
+              ₦
               {filtered.length < 1
                 ? ""
                 : `${

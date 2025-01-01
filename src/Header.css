@@ -44,7 +44,7 @@ li {
 }
 
 .address-box {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 600;
   display: flex;
   flex-direction: column;
@@ -52,11 +52,12 @@ li {
   justify-content: center;
   text-transform: uppercase;
   border: 2px solid #000000;
-  padding: 10px 10px;
+  padding: 10px 30px 10px 10px;
 }
 
 .invoice-details-box {
-  font-size: 10px;
+  font-size: 12px;
+  text-transform: uppercase;
 }
 
 .invoice-details-box ul {
@@ -66,10 +67,11 @@ li {
 }
 
 .invoice-details-box select {
+  text-transform: uppercase;
   background: none;
   color: #000000;
   border: none;
-  font-size: 10px;
+  font-size: 12px;
   -webkit-appearance: none;
   -moz-appearance: none;
   text-indent: 1px;
@@ -79,6 +81,6 @@ li {
 }
 
 .invoice-details-box select option {
-  font-size: 12px;
+  font-size: 14px;
   font-family: calibri;
 }

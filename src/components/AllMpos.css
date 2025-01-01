@@ -46,6 +46,14 @@
   flex-direction: column;
 }
 
+table,
+thead,
+tbody,
+tr,
+td {
+  border: 1px solid #00101c;
+}
+
 .mposFilterCon select {
   background-color: #00101c;
   padding: 5px 20px 5px 2px;
@@ -70,6 +78,7 @@
   padding: 20px;
   border-radius: 15px;
   height: 30%;
+  position: relative;
   box-sizing: border-box;
   background-color: rgb(235, 235, 235);
   display: flex;
@@ -82,9 +91,9 @@
   background-color: #00101c;
   height: 100%;
   flex: 1;
-  border-radius: 10px;
   box-sizing: border-box;
   padding: 20px;
+  overflow-y: scroll;
 }
 
 .box1 {
@@ -92,29 +101,7 @@
 }
 
 .box2 {
-  flex: 1;
-}
-
-.box3 {
-  flex: 2;
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  height: 100%;
-}
-
-.box3 select {
-  border: none;
-  outline: none;
-  background-color: #0675c3;
-  padding: 5px;
-  box-sizing: border-box;
-  font-size: 12px;
-}
-
-.box3 select option {
-  background-color: #00101c;
-  font-size: 12px;
+  flex: 1.2;
 }
 
 .incomes-container {
@@ -123,8 +110,9 @@
 }
 
 .incomes-container div .span {
-  color: #0675c3;
+  color: #a2d8ff;
   margin-bottom: 5px;
+  font-size: 16px;
 }
 
 .incomes-container div {
@@ -150,30 +138,35 @@ h1 {
   background-color: rgb(214, 214, 214);
   overflow-x: scroll !important;
   overflow-y: scroll !important;
-  border: 1px solid black;
+  border: 1px solid #00101c;
 }
 
 /* Scrollbar Styling for WebKit Browsers (Chrome, Edge, Safari) */
-.outerDiv::-webkit-scrollbar {
+.outerDiv::-webkit-scrollbar,
+.box::-webkit-scrollbar {
   width: 12px; /* Width of the vertical scrollbar */
 }
 
-.outerDiv::-webkit-scrollbar-track {
+.outerDiv::-webkit-scrollbar-track,
+.box::-webkit-scrollbar-track {
   background: #f0f0f0; /* Background of the scrollbar track */
   border-radius: 4px; /* Rounded corners for the track */
 }
 
-.outerDiv::-webkit-scrollbar-thumb {
+.outerDiv::-webkit-scrollbar-thumb,
+.box::-webkit-scrollbar-thumb {
   background: #0675c3; /* Color of the scrollbar thumb */
   border-radius: 4px; /* Rounded corners for the thumb */
 }
 
-.outerDiv::-webkit-scrollbar-thumb:hover {
+.outerDiv::-webkit-scrollbar-thumb:hover,
+.box::-webkit-scrollbar-thumb:hover {
   background: #0675c3; /* Hover color for the thumb */
 }
 
 /* Scrollbar Styling for Firefox */
-.outerDiv {
+.outerDiv,
+.box {
   scrollbar-width: 12px; /* Thin scrollbar */
   scrollbar-color: #0675c3 #00101c; /* Thumb color and track color */
 }
@@ -266,4 +259,60 @@ h1 {
   font-size: 15px;
   font-weight: 700;
   text-align: right;
+  border-right: 1px solid white;
+  border-left: 1px solid white;
+}
+
+@media (max-width: 1600px) {
+  .incomes-container div h1 {
+    font-size: 22px;
+    margin: 0;
+    color: white;
+  }
+}
+
+@media (max-width: 1366px) {
+  .body {
+    width: 96%;
+    bottom: 0;
+  }
+
+  .box {
+    background-color: #00101c;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 15px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .incomes-container div .span {
+    color: #a2d8ff;
+    margin-bottom: 5px;
+    font-size: 12px;
+  }
+
+  .incomes-container div h1 {
+    font-size: 22px;
+    margin: 0;
+    color: white;
+  }
+}
+
+@media (max-width: 1000px) {
+  .box {
+    overflow: visible;
+  }
+
+  .dashboard {
+    overflow: scroll;
+  }
+
+  .allMposCont h1 {
+    font-size: 28px;
+  }
+
+  .allMposCont button {
+    font-size: 14px !important;
+  }
 }

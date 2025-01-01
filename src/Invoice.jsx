@@ -3,6 +3,11 @@ import { db } from "./config/firebase-config";
 import { getDocs, collection } from "firebase/firestore";
 import "./Header.css";
 import "./Invoice.css";
+import "animate.css";
+// import step1 from "./assets/step-1.png";
+// import step2 from "./assets/step-2.png";
+// import step3 from "./assets/step-3.png";
+// import step4 from "./assets/step-4.png";
 
 const months = [
   "January",
@@ -21,9 +26,11 @@ const months = [
 
 export default function Invoice() {
   const [selectedValue, setSelectedValue] = useState("");
-  const [selectedMonth, setSelectedMonth] = useState("Select Month");
+  const [selectedMonth, setSelectedMonth] = useState("");
   const [mpoList, setMpoList] = useState([]);
   const [selectedAgency, setSelectedAgency] = useState("");
+  // const [helpState, setHelpState] = useState("helpContainerHidden");
+  // const [minHelpState, setMinHelpState] = useState("minimizedHelpHidden");
 
   const mposRef = collection(db, "MPOS");
 
@@ -43,11 +50,36 @@ export default function Invoice() {
         console.error(err);
       }
     }
-
     getMPOList();
   });
 
+  // window.addEventListener("load", () => {
+  //   console.log("Ran immediately");
+  //   setTimeout(() => {
+  //     setHelpState("helpContainer");
+  //   }, 2000);
+  //   false;
+  // });
   // console.log(mpoList);
+
+  // function minimizeHelp() {
+  //   setHelpState("helpContainerHidden");
+  //   setMinHelpState("minimizedHelp");
+  // }
+
+  // console.log(helpState);
+
+  // function openHelp() {
+  //   setHelpState("helpContainer");
+  //   if (minHelpState === "minHelpDown") {
+  //     setMinHelpState("minimizedHelp");
+  //   }
+  // }
+
+  // function closeHelp() {
+  //   setHelpState("helpContainerHidden");
+  //   setMinHelpState("minHelpDown");
+  // }
 
   const mpos = mpoList;
 
@@ -71,14 +103,42 @@ export default function Invoice() {
     (mpo) => mpo.agency === selectedAgency
   );
 
-  const filteredMpoNums = filteredAgencyMPOs.filter(
-    (mpo) => mpo.mpoNumber === selectedValue
-  );
+  let filteredMonthMpos;
+  filteredMonthMpos =
+    selectedMonth === ""
+      ? []
+      : filteredAgencyMPOs.filter((mpo) => mpo.month === selectedMonth);
+
+  let filteredMpoNums;
+  filteredMpoNums =
+    filteredMonthMpos.length < 1
+      ? []
+      : filteredMonthMpos.filter((mpo) => mpo.mpoNumber === selectedValue);
+
+  filteredMpoNums =
+    filteredMpoNums.length < 1
+      ? []
+      : filteredMpoNums.sort((a, b) => a.sn - b.sn);
+  // console.log(filteredMpoNums[2].sn);
 
   function calcRateTotal(a, b) {
     const calcRate = Math.round(a * b * 100) / 100;
     if (calcRate % 1 !== 0) {
-      return calcRate.toLocaleString("en-US");
+      if (
+        calcRate % 1 === 0.1 ||
+        calcRate % 1 === 0.2 ||
+        calcRate % 1 === 0.3 ||
+        calcRate % 1 === 0.4 ||
+        calcRate % 1 === 0.5 ||
+        calcRate % 1 === 0.6 ||
+        calcRate % 1 === 0.7 ||
+        calcRate % 1 === 0.8 ||
+        calcRate % 1 === 0.9
+      ) {
+        return `${calcRate.toLocaleString("en-US")}0`;
+      } else {
+        return calcRate.toLocaleString("en-US");
+      }
     } else {
       return `${calcRate.toLocaleString("en-US")}.00`;
     }
@@ -87,7 +147,21 @@ export default function Invoice() {
   function calcVD(a, b) {
     const calcVDAmnt = Math.round((a / 100) * b * 100) / 100;
     if (calcVDAmnt % 1 !== 0) {
-      return 'calcVDAmnt.toLocaleString("en-US")';
+      if (
+        calcVDAmnt % 1 === 0.1 ||
+        calcVDAmnt % 1 === 0.2 ||
+        calcVDAmnt % 1 === 0.3 ||
+        calcVDAmnt % 1 === 0.4 ||
+        calcVDAmnt % 1 === 0.5 ||
+        calcVDAmnt % 1 === 0.6 ||
+        calcVDAmnt % 1 === 0.7 ||
+        calcVDAmnt % 1 === 0.8 ||
+        calcVDAmnt % 1 === 0.9
+      ) {
+        return `${calcVDAmnt.toLocaleString("en-US")}0`;
+      } else {
+        return calcVDAmnt.toLocaleString("en-US");
+      }
     } else {
       return `${calcVDAmnt.toLocaleString("en-US")}.00`;
     }
@@ -99,7 +173,21 @@ export default function Invoice() {
     const rem = rateTotal - vdAmount;
     const calcACAmnt = Math.round((d / 100) * rem * 100) / 100;
     if (calcACAmnt % 1 !== 0) {
-      return calcACAmnt.toLocaleString("en-US");
+      if (
+        calcACAmnt % 1 === 0.1 ||
+        calcACAmnt % 1 === 0.2 ||
+        calcACAmnt % 1 === 0.3 ||
+        calcACAmnt % 1 === 0.4 ||
+        calcACAmnt % 1 === 0.5 ||
+        calcACAmnt % 1 === 0.6 ||
+        calcACAmnt % 1 === 0.7 ||
+        calcACAmnt % 1 === 0.8 ||
+        calcACAmnt % 1 === 0.9
+      ) {
+        return `${calcACAmnt.toLocaleString("en-US")}0`;
+      } else {
+        return calcACAmnt.toLocaleString("en-US");
+      }
     } else {
       return `${calcACAmnt.toLocaleString("en-US")}.00`;
     }
@@ -117,7 +205,21 @@ export default function Invoice() {
     const vatAmount = (e / 100) * rem2;
     const calcVatAmnt = Math.round(vatAmount * 100) / 100;
     if (calcVatAmnt % 1 !== 0) {
-      return calcVatAmnt.toLocaleString("en-US");
+      if (
+        calcVatAmnt % 1 === 0.1 ||
+        calcVatAmnt % 1 === 0.2 ||
+        calcVatAmnt % 1 === 0.3 ||
+        calcVatAmnt % 1 === 0.4 ||
+        calcVatAmnt % 1 === 0.5 ||
+        calcVatAmnt % 1 === 0.6 ||
+        calcVatAmnt % 1 === 0.7 ||
+        calcVatAmnt % 1 === 0.8 ||
+        calcVatAmnt % 1 === 0.9
+      ) {
+        return `${calcVatAmnt.toLocaleString("en-US")}0`;
+      } else {
+        return calcVatAmnt.toLocaleString("en-US");
+      }
     } else {
       return `${calcVatAmnt.toLocaleString("en-US")}.00`;
     }
@@ -132,7 +234,21 @@ export default function Invoice() {
     const vatAmount = (e / 100) * rem2;
     const calcLnTotalAmnt = Math.round((vatAmount + rem2) * 100) / 100;
     if (calcLnTotalAmnt % 1 !== 0) {
-      return calcLnTotalAmnt.toLocaleString("en-US");
+      if (
+        calcLnTotalAmnt % 1 === 0.1 ||
+        calcLnTotalAmnt % 1 === 0.2 ||
+        calcLnTotalAmnt % 1 === 0.3 ||
+        calcLnTotalAmnt % 1 === 0.4 ||
+        calcLnTotalAmnt % 1 === 0.5 ||
+        calcLnTotalAmnt % 1 === 0.6 ||
+        calcLnTotalAmnt % 1 === 0.7 ||
+        calcLnTotalAmnt % 1 === 0.8 ||
+        calcLnTotalAmnt % 1 === 0.9
+      ) {
+        return `${calcLnTotalAmnt.toLocaleString("en-US")}0`;
+      } else {
+        return calcLnTotalAmnt.toLocaleString("en-US");
+      }
     } else {
       return `${calcLnTotalAmnt.toLocaleString("en-US")}.00`;
     }
@@ -156,6 +272,39 @@ export default function Invoice() {
   calcTotalRate();
 
   const returnTotalRate = () => {
+    if (filteredMpoNums.length < 1) {
+      return;
+    } else {
+      let totalValue = 0;
+      filteredMpoNums.forEach((mpo) => {
+        totalValue = totalValue + mpo.total;
+      });
+      // console.log(totalValue);
+      // totalValue = totalValue.toLocaleString("en-US");
+      const mainTotalValue = Math.round(totalValue * 100) / 100;
+      if (mainTotalValue % 1 !== 0) {
+        if (
+          mainTotalValue % 1 === 0.1 ||
+          mainTotalValue % 1 === 0.2 ||
+          mainTotalValue % 1 === 0.3 ||
+          mainTotalValue % 1 === 0.4 ||
+          mainTotalValue % 1 === 0.5 ||
+          mainTotalValue % 1 === 0.6 ||
+          mainTotalValue % 1 === 0.7 ||
+          mainTotalValue % 1 === 0.8 ||
+          mainTotalValue % 1 === 0.9
+        ) {
+          return `${mainTotalValue.toLocaleString("en-US")}0`;
+        } else {
+          return mainTotalValue.toLocaleString("en-US");
+        }
+      } else {
+        return `${mainTotalValue.toLocaleString("en-US")}.00`;
+      }
+    }
+  };
+
+  const returnTotalRateTW = () => {
     if (filteredMpoNums.length < 1) {
       return;
     } else {
@@ -268,7 +417,9 @@ export default function Invoice() {
     const kobo = Math.round((number - naira) * 100); // Get the fractional part as Kobo
 
     // Convert Naira and Kobo parts to words
-    let result = convertToWords(naira) + " Naira"; // Convert Naira
+    let result =
+      convertToWords(naira) +
+      `${returnTotalRateTW() % 1 === 0 ? " Naira Only" : " Naira"}`; // Convert Naira
     if (kobo > 0) {
       result += ", " + convertToWords(kobo) + " Kobo Only"; // Add Kobo if it's non-zero
     }
@@ -302,12 +453,224 @@ export default function Invoice() {
   );
 
   const uniqueMPONums = Array.from(
-    new Map(filteredAgencyMPOs.map((item) => [item.mpoNumber, item])).values()
+    selectedMonth === ""
+      ? ""
+      : new Map(
+          filteredMonthMpos.map((item) => [item.mpoNumber, item])
+        ).values()
   );
+
+  document.addEventListener("keydown", function (e) {
+    if (e.ctrlKey && e.key === "s") {
+      alert("Hi");
+    }
+  });
+
+  const textInput = `${`INVOICE (${
+    filteredMpoNums.length < 1 ? "" : filteredMpoNums[0].campaign
+  } - ${selectedValue === "" ? "" : selectedValue}) - ${
+    selectedMonth === ""
+      ? "Select Month To Generate Invoice Number"
+      : `AG${getMonthText()}24 ${
+          filteredMpoNums.length < 1
+            ? "00"
+            : findInvNumber() < 10
+            ? `0${findInvNumber()}`
+            : findInvNumber()
+        }`
+  }`}`.toUpperCase();
+
+  const [status, setStatus] = useState("Copy to Clipboard");
+
+  async function handleCopy() {
+    try {
+      await navigator.clipboard.writeText(textInput);
+      setStatus("Copied!");
+    } catch (error) {
+      console.error("Failed to copy text:", error);
+      setStatus("Unable to copy! Try again.");
+    }
+
+    setTimeout(() => setStatus("Copy to Clipboard"), 3000);
+  }
 
   return (
     <>
       <div className="invoiceCon">
+        <div className="fileName">
+          <div>
+            <span
+              style={{
+                padding: "10px",
+                margin: "0",
+                color: "white",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                boxSizing: "border-box",
+              }}
+            >
+              {textInput}
+            </span>
+            <button
+              onClick={handleCopy}
+              style={{
+                backgroundColor: `${
+                  status === "Copy to Clipboard"
+                    ? `#0675c3`
+                    : `${
+                        status === "Copied!"
+                          ? "rgb(214, 255, 216)"
+                          : "rgb(255, 214, 214)"
+                      }`
+                }`,
+                boxSizing: "border-box",
+
+                color: `${status === "Copy to Clipboard" ? `#fff` : `#000000`}`,
+              }}
+            >
+              {status}
+            </button>
+          </div>
+        </div>
+        {/* Container for minimized help */}
+        {/* <div className={` ${minHelpState}`} onClick={openHelp}>
+          <h1 className="animate-animated animate__flash">NEED HELP?</h1>
+        </div> */}
+
+        {/* Container for how to use invoice generator */}
+        {/* <div className={helpState}>
+          <div className="mainHelp animate__animated animate__slideInUp">
+            <div
+              style={{
+                position: "absolute",
+                top: "3%",
+                right: "3%",
+                display: "flex",
+                alignContent: "center",
+                gap: "8px",
+              }}
+            >
+              <span
+                className="min"
+                onClick={minimizeHelp}
+                style={{
+                  width: "15px",
+                  height: "15px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "50%",
+                  fontSize: "14px",
+                  fontWeight: "bolder",
+                  color: "white",
+                  backgroundColor: "#0675c3",
+                  cursor: "pointer",
+                  boxSizing: "border-box",
+                  padding: "0px 0px 1px 0px",
+                  transitionDuration: ".3s",
+                }}
+              >
+                -
+              </span>
+              <span
+                className="close"
+                onClick={closeHelp}
+                style={{
+                  width: "15px",
+                  height: "15px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "50%",
+                  fontSize: "8px",
+                  fontWeight: "bolder",
+                  color: "white",
+                  backgroundColor: "red",
+                  cursor: "pointer",
+                  boxSizing: "border-box",
+                  padding: "0px 0px 1px 0px",
+                  transitionDuration: ".3s",
+                }}
+              >
+                X
+              </span>
+            </div>
+            <div className="helpContentDiv">
+              <h1>How to use Invoice Generator</h1>
+              <div
+                style={{
+                  borderBottom: "1px solid black",
+                  width: "100%",
+                  height: "5px",
+                }}
+              ></div>
+              <ul className="stepsUl">
+                <div>
+                  <li>
+                    <b>
+                      Step 1:<br></br>
+                    </b>
+                    Select Agency{" "}
+                    <span className="stepsSpan">(on top right)</span>
+                    <br />
+                    <img src={step1} alt="Step 1" />
+                  </li>
+
+                  <li>
+                    <b>
+                      Step 3:<br></br>
+                    </b>
+                    Select MPO No.{" "}
+                    <span className="stepsSpan">(under agency)</span>
+                    <br />
+                    <img src={step3} alt="Step 3" />
+                  </li>
+                </div>
+                <div>
+                  <li>
+                    <b>
+                      Step 2:<br></br>
+                    </b>
+                    Select Month{" "}
+                    <span className="stepsSpan">(after invoice No.)</span>
+                    <br />
+                    <img src={step2} alt="Step 2" />
+                  </li>
+                  <li>
+                    <b>
+                      Step 4:<br></br>
+                    </b>
+                    CTRL + P to print{" "}
+                    <span className="stepsSpan">
+                      (select &quot;Save as PDF&quot;)
+                    </span>
+                    <br />
+                    <img src={step4} alt="Step 2" />
+                  </li>
+                </div>
+              </ul>
+              <div className="noteCont">
+                <h1>NOTE</h1>
+                <p>
+                  Invoice information will automatically be generated after
+                  selecting the agency, month, and MPO number,
+                  <span>{`(including amount in words).`} </span>
+                </p>
+
+                <p>
+                  Letterhead and signature will appear upon pressing CTRL + P.
+                </p>
+
+                <p>
+                  After pressing CTRL + P, confirm that layout is PORTRAIT, and
+                  paper size is LETTER.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div> */}
+
         <header>
           <div className="title">
             <h1>invoice</h1>
@@ -316,7 +679,7 @@ export default function Invoice() {
             <div className="address-box">
               <li>The Media Buyer</li>
               <li>
-                {filteredMpoNums.length < 1 ? "" : filteredMpoNums[0].agency}
+                {selectedAgency === "" ? "(Select Agency)" : selectedAgency}
               </li>
               <li>Lagos</li>
             </div>
@@ -325,11 +688,14 @@ export default function Invoice() {
                 <li className="noPrint">
                   <b>AGENCY: </b>
                   <select onChange={(e) => setSelectedAgency(e.target.value)}>
-                    <option value="" selected>
+                    <option value="" defaultValue>
                       Select Agency
                     </option>
                     {uniqueAgency.map((mpo) => (
-                      <option key={mpo.agency} value={mpo.agency}>
+                      <option
+                        key={uniqueAgency.indexOf(mpo)}
+                        value={mpo.agency}
+                      >
                         {mpo.agency}
                       </option>
                     ))}
@@ -338,13 +704,16 @@ export default function Invoice() {
                 <li>
                   <b>MPO NO: </b>
                   <select onChange={(e) => setSelectedValue(e.target.value)}>
-                    <option value="" selected>
+                    <option value="" defaultValue>
                       Select MPO No.
                     </option>
                     {uniqueMPONums.length < 1
                       ? ""
                       : uniqueMPONums.map((mpo) => (
-                          <option key={mpo.index} value={mpo.mpoNumber}>
+                          <option
+                            key={uniqueMPONums.indexOf(mpo)}
+                            value={mpo.mpoNumber}
+                          >
                             {mpo.mpoNumber}
                           </option>
                         ))}
@@ -377,17 +746,22 @@ export default function Invoice() {
           <div className="invoiceHeader">
             <div className="invoiceNoCon">
               INVOICE NO:{" "}
-              {`AG${getMonthText()}24/${
-                filteredAgencyMPOs.length < 1
-                  ? ""
-                  : findInvNumber() < 10
-                  ? `0${findInvNumber()}`
-                  : findInvNumber()
-              }`}
+              {selectedMonth === ""
+                ? "Select Month To Generate Invoice Number"
+                : `AG${getMonthText()}24/${
+                    filteredMpoNums.length < 1
+                      ? "00"
+                      : findInvNumber() < 10
+                      ? `0${findInvNumber()}`
+                      : findInvNumber()
+                  }`}
             </div>
             <div>
               MONTH:{" "}
               <select onChange={handleSelectedMonth}>
+                <option value="" defaultValue>
+                  Select Month
+                </option>
                 {months.map((month) => (
                   <option key={month} value={month}>
                     {month}
@@ -419,7 +793,7 @@ export default function Invoice() {
             </thead>
             <tbody>
               {filteredMpoNums.map((item) => (
-                <tr key={item.index}>
+                <tr key={filteredMpoNums.indexOf(item)}>
                   <td className="center">
                     {filteredMpoNums.indexOf(item) + 1}
                   </td>
@@ -469,7 +843,12 @@ export default function Invoice() {
                   </td>
                 </tr>
               ))}
-              <tr className="emptyDiv">
+              <tr
+                className="emptyDiv"
+                style={{
+                  height: `${filteredMpoNums.length > 3 ? "40px" : "80px"}`,
+                }}
+              >
                 <td></td>
                 <td></td>
                 <td></td>
@@ -514,13 +893,7 @@ export default function Invoice() {
                     fontWeight: "bold",
                   }}
                 >
-                  {filteredMpoNums.length < 1
-                    ? ""
-                    : `${
-                        returnTotalRate() % 1 !== 0
-                          ? `${returnTotalRate().toLocaleString("en-US")}`
-                          : `${returnTotalRate().toLocaleString("en-US")}.00`
-                      }`}
+                  {filteredMpoNums.length < 1 ? "" : `${returnTotalRate()}`}
                 </td>
               </tr>
             </tbody>
@@ -531,7 +904,7 @@ export default function Invoice() {
             <h3 style={{ fontWeight: 500 }}>
               {filteredMpoNums.length < 1
                 ? ""
-                : numberToWordsInNaira(returnTotalRate())}
+                : numberToWordsInNaira(returnTotalRateTW())}
             </h3>
           </div>
           <div className="salutation">

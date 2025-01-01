@@ -6,7 +6,16 @@
 
 .main {
   width: 100%;
+  height: 100vh;
   overflow: hidden;
+}
+
+.main-Inv {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  /* background-color: red; */
 }
 
 .innerCont {
@@ -17,6 +26,16 @@
   align-items: center;
   height: 100vh;
   position: relative;
+}
+
+.innerContInv {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: scroll;
 }
 
 .menu-icon {
@@ -53,7 +72,6 @@
 #check:checked + .menu-icon .ln1 {
   transform: rotate(45deg) translate(5px, 4px);
   width: 35px;
-
   background: #0675c3;
 }
 
@@ -76,7 +94,6 @@
 }
 
 .navbarCon {
-  border-right: 1px solid #000000;
   display: flex;
   background-color: #00101cec;
   position: absolute;
@@ -111,19 +128,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 .displayCompInv {
+  width: 100%;
+  margin: auto;
+  top: 100px;
+  /* background-color: green; */
   flex: 2.5;
-  height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  background-image: url(./assets/letterhead.jpg);
-  background-size: contain;
-  background-position: center center;
-  background-repeat: no-repeat;
+  align-items: start;
 }
 
 .navbarCon span {
@@ -159,6 +175,47 @@
   box-sizing: border-box;
 }
 
+.navbar {
+  width: 100%;
+  border: none;
+  margin-top: 150px;
+}
+
+.navbar .innerNavv {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  margin: auto;
+  justify-content: center;
+  text-align: left;
+  align-items: flex-start;
+  position: relative;
+  padding-left: 50px;
+  box-sizing: border-box;
+}
+
+.navbar a {
+  padding: 0;
+  background: none;
+  border-radius: 0px;
+  font-size: 12px;
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+  /* background-color: #616161; */
+  outline: none;
+  color: #fff;
+  padding: 0px 0px 15px 0px;
+  border-bottom: 1px solid #9dd1f7;
+  box-sizing: border-box;
+}
+
+.navbar .active {
+  background-color: #0675c3;
+  color: #ffffff;
+}
+
 @media print {
   .noPrint {
     display: none !important;
@@ -168,18 +225,83 @@
     display: none !important;
   }
 
-  .displayComp {
+  /* .displayCompInv {
     background-image: url(./assets/letterhead.jpg);
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
+  } */
+
+  .displayComp::-webkit-scrollbar {
+    display: none;
+  }
+
+  .main-Inv {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: visible;
+  }
+
+  .innerContInv {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    display: block;
+    overflow: visible;
+  }
+
+  .displayCompInv {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    top: 50px;
+    /* background-color: green; */
+    flex: 2.5;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    position: absolute;
+    top: 130px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
-.displayComp {
-  flex: 2.5;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+@media (max-width: 1366px) {
+  .menu-icon {
+    left: 28px;
+    gap: 3px;
+  }
+
+  .navbarCon {
+    width: 18%;
+  }
+
+  .navbar .innerNavv {
+    padding-left: 32px;
+  }
+
+  .menu-icon .ln1,
+  .menu-icon .ln3 {
+    width: 30px;
+    height: 3px;
+  }
+
+  .menu-icon .ln2 {
+    width: 15px;
+    height: 3px;
+  }
+
+  #check:checked + .menu-icon .ln1 {
+    transform: rotate(45deg) translate(5px, 4px);
+    width: 25px;
+    background: #0675c3;
+  }
+
+  #check:checked + .menu-icon .ln3 {
+    transform: rotate(-45deg) translate(4px, -4px);
+    width: 25px;
+    background: #0675c3;
+  }
 }

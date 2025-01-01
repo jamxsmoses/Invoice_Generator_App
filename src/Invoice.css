@@ -13,6 +13,63 @@ body {
   background-repeat: no-repeat;
 }
 
+.fileName {
+  margin: 60px auto 50px auto;
+  /* background-color: red; */
+  text-align: center;
+  text-transform: uppercase;
+  height: 50px;
+  box-sizing: border-box;
+}
+
+.fileName div {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  height: 100%;
+  align-items: center;
+  background-color: black;
+  box-sizing: border-box;
+}
+
+.fileName button {
+  margin: 0;
+  padding: 22px 10px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0px;
+  border-top: 5px solid white;
+  border-bottom: 5px solid white;
+  border-left: 10px solid white;
+  border-right: 10px solid white;
+  outline: none;
+  font-size: 11px;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+.fileName button img {
+  height: 80%;
+}
+
+/* .main-main {
+  background-color: red;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.main-main2 {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+} */
+
 .center {
   text-align: center;
   padding: 5px 5px;
@@ -28,7 +85,7 @@ body {
 }
 
 .invoiceCon {
-  width: 96%;
+  width: 85%;
 }
 
 main {
@@ -45,14 +102,14 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 10px;
+  font-size: 12px;
   color: white;
   padding: 4px 20px;
   box-sizing: border-box;
 }
 
 .invTr {
-  background-color: #fff;
+  background: none;
   color: #000000;
 }
 
@@ -71,7 +128,7 @@ main {
 .invoiceHeader .invoiceNoCon div input {
   background-color: #fcfcfc;
   border: none;
-  font-size: 10px;
+  font-size: 12px;
   outline: none;
   color: #000000;
 }
@@ -83,6 +140,63 @@ main {
 @media print {
   .noPrint {
     display: none !important;
+  }
+
+  .helpContainer {
+    display: none;
+  }
+
+  .minimizedHelp {
+    display: none;
+  }
+
+  .minHelpDown {
+    display: none;
+  }
+
+  main .salutation .img {
+    opacity: 100% !important;
+  }
+
+  body {
+    background: none;
+  }
+
+  .fileName {
+    display: none;
+  }
+
+  .invoiceHeader {
+    font-size: 10px !important;
+  }
+
+  .invoiceHeader .invoiceNoCon div input {
+    font-size: 10px !important;
+  }
+
+  .invoiceHeader select {
+    font-size: 10px !important;
+  }
+
+  .invoiceHeader select option {
+    font-size: 10px !important;
+  }
+
+  main table thead,
+  main table tbody {
+    font-size: 10px !important;
+  }
+
+  main .amountInWords p {
+    font-size: 10px !important;
+  }
+
+  main .amountInWords h3 {
+    font-size: 10px !important;
+  }
+
+  main .salutation {
+    font-size: 11px !important;
   }
 }
 
@@ -103,7 +217,7 @@ main {
   background: none;
   color: #fff;
   border: none;
-  font-size: 10px;
+  font-size: 12px;
   -webkit-appearance: none;
   -moz-appearance: none;
   text-indent: 1px;
@@ -113,7 +227,7 @@ main {
 }
 
 .invoiceHeader select option {
-  font-size: 10px;
+  font-size: 12px;
   font-family: calibri;
   color: black;
 }
@@ -132,7 +246,7 @@ td {
 main table thead,
 main table tbody {
   width: 100%;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 10px;
   box-sizing: border-box;
   text-align: center;
@@ -148,7 +262,6 @@ main table td {
 }
 
 .emptyDiv td {
-  height: 80px;
   border: none;
 }
 
@@ -169,7 +282,7 @@ main .amountInWords {
 }
 
 main .amountInWords p {
-  font-size: 10px;
+  font-size: 12px;
   font-style: italic;
   font-weight: bold;
 }
@@ -181,18 +294,19 @@ main .amountInWords h3 {
   background-color: #fff;
   border: none;
   border-bottom: 1px solid #000000;
-  font-size: 10px;
+  font-size: 12px;
   color: #000000;
   outline: 0px;
 }
 
 main .salutation {
   margin-top: 30px;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 10px;
 }
 
 main .salutation .img {
+  opacity: 0%;
   width: 100px;
   height: 40px;
   background-image: url(./assets/Signature.png);
@@ -208,4 +322,10 @@ main .salutation .img {
   bottom: 10px;
   width: 25px;
   cursor: pointer;
+}
+
+@media (max-width: 1366px) {
+  .mainHelp {
+    width: 55%;
+  }
 }

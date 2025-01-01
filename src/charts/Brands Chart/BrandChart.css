@@ -10,11 +10,33 @@
   display: flex;
   justify-content: center;
   align-items: start;
-  background-color: #cfcfcf;
+
   box-sizing: border-box;
 }
 
-.phdTable {
+.box3 {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  height: 100%;
+}
+
+.box3 select {
+  border: none;
+  outline: none;
+  background-color: #0675c3;
+  padding: 3px;
+  box-sizing: border-box;
+  font-size: 10px;
+}
+
+.box3 select option {
+  background-color: #00101c;
+  font-size: 10px;
+}
+
+.chartTable {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -23,32 +45,35 @@
   padding: 0;
 }
 
-.phdTable tr {
+.chartTable tr {
   display: flex;
   justify-content: space-between;
 }
 
-.phdTable .tr1 {
-  height: 89%;
+.chartTable .tr1 {
+  height: 85%;
+  box-sizing: border-box;
 }
 
-.phdTable .tr2 {
+.chartTable .tr2 {
   height: 10%;
+  box-sizing: border-box;
+  /* padding-bottom: 10px; */
 }
 
-.phdTable tr td {
+.chartTable tr td {
   flex: 1;
   border: none;
   height: 100%;
   text-align: center;
 }
 
-.phdTable tr .lastBox {
+.chartTable tr .lastBox {
   margin-right: 0px;
 }
 
 .monthChart {
-  background-color: #cfcfcf;
+  background-color: #00101c1f;
   height: 100%;
   margin: 0;
   padding: 0;
